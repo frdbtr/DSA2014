@@ -13,11 +13,7 @@ class InputStrings{
 	str[4] = sc.next();
 	System.out.println("入力順\t逆順");
 	for(int i = 0; i < str.length; i++){
-	    System.out.print(str[i]+"\t");
-	    for(int j = 1; j <= str[i].length(); j++){
-		System.out.print(str[i].charAt(str[i].length()-j));
-	    }
-	    System.out.print("\n");
+		System.out.println(str[i] + "\t" + str[4-i]);
 	}
     }
 }
