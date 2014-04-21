@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class CardConv{
+    public static void main(String[] args){
+	Scanner sc = new Scanner(System.in);
+	int target = 0;
+	int convert = 0;
+	do{
+	    System.out.print("変換する非負の整数 : ");
+	    target = sc.nextInt();
+	}while(target <= 0);
+	do{
+	    System.out.print("何進数に変換しますか ");
+	    convert = sc.nextInt();
+	}while(convert == 2 || convert == 8 || convert == 16);
+    }
+
+    static cardConv(int x, int r, char[] d){
+	int digits = 0;
+	String dchar = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	do{
+	    d[digits++] = dchar.charAt(x % r);
+	    x /= r;
+	}while(x != 0);
+	return digits;
+    }
+
+    static void swap(int[] array, int idx1, int idx2){
+	int t = array[idx1];
+	array[idx1] = array[idx2];
+	array[idx2] = t;
+    }
+
+    static void reverse(int[] array){
+	for(int i = 0; i < array.length/2; i++){
+	    swap(array, i, array.length - i - 1);
+	}
+    }
+}
