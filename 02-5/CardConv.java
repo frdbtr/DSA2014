@@ -28,8 +28,14 @@ public class CardConv{
     static int cardConv(int x, int r, char[] d){
 	int digits = 0;
 	String dchar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	System.out.print(r + "  |  " + x + "\n");
 	do{
-	    System.out.println(r + " | " + x + "\n  +-----");
+	    System.out.print("   +------\n");
+			if(x/r != 0){
+	    	System.out.print(r + "  |  " + (x/r) + " ... " + (x % r) + "\n");
+	    }else{
+	    	System.out.print("      " + (x/r) + " ... " + (x % r) + "\n");
+	    }
 	    d[digits++] = dchar.charAt(x % r);
 	    x /= r;
 	}while(x != 0);
