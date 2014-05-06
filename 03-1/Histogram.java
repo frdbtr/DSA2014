@@ -23,7 +23,7 @@ public class Histogram{
 		int[] numarray = new int[n];
 		generateRandomValues(numarray, max);
 
-		for(int i = 0; i < numarray.length; i++){
+		for(int i = 0; i < max; i++){
 			int num = 0;
 			for(int j = 0; j < numarray.length; j++){
 				if(i == numarray[j]){
