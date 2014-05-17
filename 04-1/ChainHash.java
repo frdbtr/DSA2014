@@ -1,27 +1,27 @@
 // チェイン法によるハッシュ
 
-public class ChainHash<Integer,String> {
+public class ChainHash<K,V> {
 
 	//--- ハッシュを構成するノード ---//
-	class Node<Integer,String> {
-		private Integer key;					// キー値
-		private String data;				// データ
-		private Node<Integer,String> next;		// 後続ノードへの参照
+	class Node<K,V> {
+		private K key;					// キー値
+		private V data;				// データ
+		private Node<K,V> next;		// 後続ノードへの参照
 
 		//--- コンストラクタ ---//
-		Node(Integer key, String data, Node<Integer,String> next) {
+		Node(K key, V data, Node<K,V> next) {
 			this.key  = key;
 			this.data = data;
 			this.next = next;
 		}
 
 		//--- キー値を返す ---//
-		Integer getKey() {
+		K getKey() {
 			return key;
 		}
 
 		//--- データを返す ---//
-		String getValue() {
+		V getValue() {
 			return data;
 		}
 
@@ -32,7 +32,7 @@ public class ChainHash<Integer,String> {
 	}
 
 	private int	size;						// ハッシュ表の大きさ
-	private Node<Integer,String>[] table;			// ハッシュ表
+	private Node<K,V>[] table;			// ハッシュ表
 
 	//--- コンストラクタ ---//
 	public ChainHash(int capacity) {
@@ -50,9 +50,9 @@ public class ChainHash<Integer,String> {
 	}
 
 	//--- キー値keyをもつ要素の探索（データを返却） ---//
-	public String search(int key) {
+	public V search(K key) {
 		int hash = hashValue(key);			// 探索するデータのハッシュ値
-		Node<Integer,String> p = table[hash];			// 着目ノード
+		Node<K,V> p = table[hash];			// 着目ノード
 
 		while (p != null) {
 			if (p.getKey().equals(key))
@@ -63,25 +63,25 @@ public class ChainHash<Integer,String> {
 	}
 
 	//--- キー値key・データdataをもつ要素の追加 ---//
-	public int add(Integer key, String data) {
+	public int add(K key, V data) {
 		int hash = hashValue(key);			// 追加するデータのハッシュ値
-		Node<Integer,String> p = table[hash];			// 着目ノード
+		Node<K,V> p = table[hash];			// 着目ノード
 
 		while (p != null) {
 			if (p.getKey().equals(key))	// このキー値は登録済み
 				return 1;
 			p = p.next;							// 後続ノードに着目
 		}
-		Node<Integer,String> temp = new Node<Integer,String>(key, data, table[hash]);
+		Node<K,V> temp = new Node<K,V>(key, data, table[hash]);
 		table[hash] = temp;					// ノードを挿入
 		return 0;
 	}
 
 	//--- キー値keyをもつ要素の削除 ---//
-	public int remove(Integer key) {
+	public int remove(K key) {
 		int hash = hashValue(key);			// 削除するデータのハッシュ値
-		Node<Integer,String> p = table[hash];			// 着目ノード
-		Node<Integer,String> pp = null;					// 前回の着目ノード
+		Node<K,V> p = table[hash];			// 着目ノード
+		Node<K,V> pp = null;					// 前回の着目ノード
 
 		while (p != null) {
 			if (p.getKey().equals(key)) {	// 見つけたら
@@ -100,7 +100,7 @@ public class ChainHash<Integer,String> {
 	//--- ハッシュ表をダンプ ---//
 	public void dump() {
 		for (int i = 0; i < size; i++) {
-			Node<Integer,String> p = table[i];
+			Node<K,V> p = table[i];
 			System.out.printf("%02d  ", i);
 			while (p != null) {
 				System.out.printf("→ %s (%s)  ", p.getKey(), p.getValue());
