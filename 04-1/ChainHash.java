@@ -1,90 +1,90 @@
-// ƒ`ƒFƒCƒ“–@‚É‚æ‚éƒnƒbƒVƒ…
+// ãƒã‚§ã‚¤ãƒ³æ³•ã«ã‚ˆã‚‹ãƒãƒƒã‚·ãƒ¥
 
 public class ChainHash<K,V> {
 
-	//--- ƒnƒbƒVƒ…‚ğ\¬‚·‚éƒm[ƒh ---//
+	//--- ãƒãƒƒã‚·ãƒ¥ã‚’æ§‹æˆã™ã‚‹ãƒãƒ¼ãƒ‰ ---//
 	class Node<K,V> {
-		private K key;					// ƒL[’l
-		private V data;				// ƒf[ƒ^
-		private Node<K,V> next;		// Œã‘±ƒm[ƒh‚Ö‚ÌQÆ
+		private K key;					// ã‚­ãƒ¼å€¤
+		private V data;				// ãƒ‡ãƒ¼ã‚¿
+		private Node<K,V> next;		// å¾Œç¶šãƒãƒ¼ãƒ‰ã¸ã®å‚ç…§
 
-		//--- ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---//
+		//--- ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---//
 		Node(K key, V data, Node<K,V> next) {
 			this.key  = key;
 			this.data = data;
 			this.next = next;
 		}
 
-		//--- ƒL[’l‚ğ•Ô‚· ---//
+		//--- ã‚­ãƒ¼å€¤ã‚’è¿”ã™ ---//
 		K getKey() {
 			return key;
 		}
 
-		//--- ƒf[ƒ^‚ğ•Ô‚· ---//
+		//--- ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™ ---//
 		V getValue() {
 			return data;
 		}
 
-		//--- ƒL[‚ÌƒnƒbƒVƒ…’l‚ğ•Ô‚· ---//
+		//--- ã‚­ãƒ¼ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’è¿”ã™ ---//
 		public int hashCode() {
 			return key.hashCode();
 		}
 	}
 
-	private int	size;						// ƒnƒbƒVƒ…•\‚Ì‘å‚«‚³
-	private Node<K,V>[] table;			// ƒnƒbƒVƒ…•\
+	private int	size;						// ãƒãƒƒã‚·ãƒ¥è¡¨ã®å¤§ãã•
+	private Node<K,V>[] table;			// ãƒãƒƒã‚·ãƒ¥è¡¨
 
-	//--- ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---//
+	//--- ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---//
 	public ChainHash(int capacity) {
 		try {
 			table = new Node[capacity];
 			this.size = capacity;
-		} catch (OutOfMemoryError e) {		// •\‚ğ¶¬‚Å‚«‚È‚©‚Á‚½
+		} catch (OutOfMemoryError e) {		// è¡¨ã‚’ç”Ÿæˆã§ããªã‹ã£ãŸ
 			this.size = 0;
 		}
 	}
 
-	//--- ƒnƒbƒVƒ…’l‚ğ‹‚ß‚é ---//
+	//--- ãƒãƒƒã‚·ãƒ¥å€¤ã‚’æ±‚ã‚ã‚‹ ---//
 	public int hashValue(Object key) {
 		return key.hashCode() % size;
 	}
 
-	//--- ƒL[’lkey‚ğ‚à‚Â—v‘f‚Ì’Tõiƒf[ƒ^‚ğ•Ô‹pj ---//
+	//--- ã‚­ãƒ¼å€¤keyã‚’ã‚‚ã¤è¦ç´ ã®æ¢ç´¢ï¼ˆãƒ‡ãƒ¼ã‚¿ã‚’è¿”å´ï¼‰ ---//
 	public V search(K key) {
-		int hash = hashValue(key);			// ’Tõ‚·‚éƒf[ƒ^‚ÌƒnƒbƒVƒ…’l
-		Node<K,V> p = table[hash];			// ’…–Úƒm[ƒh
+		int hash = hashValue(key);			// æ¢ç´¢ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚·ãƒ¥å€¤
+		Node<K,V> p = table[hash];			// ç€ç›®ãƒãƒ¼ãƒ‰
 
 		while (p != null) {
 			if (p.getKey().equals(key))
-				return p.getValue();			// ’Tõ¬Œ÷
-			p = p.next;							// Œã‘±ƒm[ƒh‚É’…–Ú
+				return p.getValue();			// æ¢ç´¢æˆåŠŸ
+			p = p.next;							// å¾Œç¶šãƒãƒ¼ãƒ‰ã«ç€ç›®
 		}
-		return null;							// ’Tõ¸”s
+		return null;							// æ¢ç´¢å¤±æ•—
 	}
 
-	//--- ƒL[’lkeyEƒf[ƒ^data‚ğ‚à‚Â—v‘f‚Ì’Ç‰Á ---//
+	//--- ã‚­ãƒ¼å€¤keyãƒ»ãƒ‡ãƒ¼ã‚¿dataã‚’ã‚‚ã¤è¦ç´ ã®è¿½åŠ  ---//
 	public int add(K key, V data) {
-		int hash = hashValue(key);			// ’Ç‰Á‚·‚éƒf[ƒ^‚ÌƒnƒbƒVƒ…’l
-		Node<K,V> p = table[hash];			// ’…–Úƒm[ƒh
+		int hash = hashValue(key);			// è¿½åŠ ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚·ãƒ¥å€¤
+		Node<K,V> p = table[hash];			// ç€ç›®ãƒãƒ¼ãƒ‰
 
 		while (p != null) {
-			if (p.getKey().equals(key))	// ‚±‚ÌƒL[’l‚Í“o˜^Ï‚İ
+			if (p.getKey().equals(key))	// ã“ã®ã‚­ãƒ¼å€¤ã¯ç™»éŒ²æ¸ˆã¿
 				return 1;
-			p = p.next;							// Œã‘±ƒm[ƒh‚É’…–Ú
+			p = p.next;							// å¾Œç¶šãƒãƒ¼ãƒ‰ã«ç€ç›®
 		}
 		Node<K,V> temp = new Node<K,V>(key, data, table[hash]);
-		table[hash] = temp;					// ƒm[ƒh‚ğ‘}“ü
+		table[hash] = temp;					// ãƒãƒ¼ãƒ‰ã‚’æŒ¿å…¥
 		return 0;
 	}
 
-	//--- ƒL[’lkey‚ğ‚à‚Â—v‘f‚Ìíœ ---//
+	//--- ã‚­ãƒ¼å€¤keyã‚’ã‚‚ã¤è¦ç´ ã®å‰Šé™¤ ---//
 	public int remove(K key) {
-		int hash = hashValue(key);			// íœ‚·‚éƒf[ƒ^‚ÌƒnƒbƒVƒ…’l
-		Node<K,V> p = table[hash];			// ’…–Úƒm[ƒh
-		Node<K,V> pp = null;					// ‘O‰ñ‚Ì’…–Úƒm[ƒh
+		int hash = hashValue(key);			// å‰Šé™¤ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚·ãƒ¥å€¤
+		Node<K,V> p = table[hash];			// ç€ç›®ãƒãƒ¼ãƒ‰
+		Node<K,V> pp = null;					// å‰å›ã®ç€ç›®ãƒãƒ¼ãƒ‰
 
 		while (p != null) {
-			if (p.getKey().equals(key)) {	// Œ©‚Â‚¯‚½‚ç
+			if (p.getKey().equals(key)) {	// è¦‹ã¤ã‘ãŸã‚‰
 				if (pp == null)
 					table[hash] = p.next;
 				else
@@ -92,18 +92,18 @@ public class ChainHash<K,V> {
 				return 0;
 			}
 			pp = p;
-			p = p.next;							// Œã‘±ƒm[ƒh‚É’…–Ú
+			p = p.next;							// å¾Œç¶šãƒãƒ¼ãƒ‰ã«ç€ç›®
 		}	
-		return 1;								// ‚»‚ÌƒL[’l‚Í‘¶İ‚µ‚È‚¢
+		return 1;								// ãã®ã‚­ãƒ¼å€¤ã¯å­˜åœ¨ã—ãªã„
 	}
 
-	//--- ƒnƒbƒVƒ…•\‚ğƒ_ƒ“ƒv ---//
+	//--- ãƒãƒƒã‚·ãƒ¥è¡¨ã‚’ãƒ€ãƒ³ãƒ— ---//
 	public void dump() {
 		for (int i = 0; i < size; i++) {
 			Node<K,V> p = table[i];
 			System.out.printf("%02d  ", i);
 			while (p != null) {
-				System.out.printf("¨ %s (%s)  ", p.getKey(), p.getValue());
+				System.out.printf("â†’ %s (%s)  ", p.getKey(), p.getValue());
 				p = p.next;
 			}
 			System.out.println();

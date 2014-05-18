@@ -1,4 +1,4 @@
-// ƒ`ƒFƒCƒ“–@‚É‚æ‚éƒnƒbƒVƒ…‚Ì—˜—p—á
+// ãƒã‚§ã‚¤ãƒ³æ³•ã«ã‚ˆã‚‹ãƒãƒƒã‚·ãƒ¥ã®åˆ©ç”¨ä¾‹
 
 import java.util.Scanner;
 
@@ -6,66 +6,66 @@ class ChainHashTester {
 
 	static Scanner stdIn = new Scanner(System.in);
 
-	//--- ƒf[ƒ^i‰ïˆõ”Ô†{–¼j ---//
+	//--- ãƒ‡ãƒ¼ã‚¿ï¼ˆä¼šå“¡ç•ªå·ï¼‹æ°åï¼‰ ---//
 	static class Data {
-		static final int NO   = 1;		// ”Ô†‚ğ“Ç‚İ‚Ş‚©H
-		static final int NAME = 2;		// –¼‚ğ“Ç‚İ‚Ş‚©H
+		static final int NO   = 1;		// ç•ªå·ã‚’èª­ã¿è¾¼ã‚€ã‹ï¼Ÿ
+		static final int NAME = 2;		// æ°åã‚’èª­ã¿è¾¼ã‚€ã‹ï¼Ÿ
 
-		private Integer no;				// ‰ïˆõ”Ô†iƒL[’lj
-		private String  name;			// –¼
+		private Integer no;				// ä¼šå“¡ç•ªå·ï¼ˆã‚­ãƒ¼å€¤ï¼‰
+		private String  name;			// æ°å
 
-		//--- ƒL[’l ---//
+		//--- ã‚­ãƒ¼å€¤ ---//
 		Integer keyCode() {
 			return no;
 		}
 
-		//--- •¶š—ñ•\Œ»‚ğ•Ô‚· ---//
+		//--- æ–‡å­—åˆ—è¡¨ç¾ã‚’è¿”ã™ ---//
 		public String toString() {
 			return name;
 		}
 
-		//--- ƒf[ƒ^‚Ì“Ç‚İ ---//
+		//--- ãƒ‡ãƒ¼ã‚¿ã®èª­è¾¼ã¿ ---//
 		void scanData(String guide, int sw) {
-			System.out.println(guide + "‚·‚éƒf[ƒ^‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
+			System.out.println(guide + "ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚");
 
 			if ((sw & NO) == NO) {
-				System.out.print("”Ô†F");
+				System.out.print("ç•ªå·ï¼š");
 				no = stdIn.nextInt();
 			}
 			if ((sw & NAME) == NAME) {
-				System.out.print("–¼‘OF");
+				System.out.print("åå‰ï¼š");
 				name = stdIn.next();
 			}
 		}
 	}
 
-	//--- ƒƒjƒ…[—ñ‹“Œ^ ---//
+	//--- ãƒ¡ãƒ‹ãƒ¥ãƒ¼åˆ—æŒ™å‹ ---//
 	enum Menu {
-		ADD(      "ƒf[ƒ^’Ç‰Á"),
-		REMOVE(   "ƒf[ƒ^íœ"),
-		SEARCH(   "ƒf[ƒ^’Tõ"),
-		DUMP(     "‘Sƒf[ƒ^•\¦"),
-		TERMINATE("I—¹");
+		ADD(      "ãƒ‡ãƒ¼ã‚¿è¿½åŠ "),
+		REMOVE(   "ãƒ‡ãƒ¼ã‚¿å‰Šé™¤"),
+		SEARCH(   "ãƒ‡ãƒ¼ã‚¿æ¢ç´¢"),
+		DUMP(     "å…¨ãƒ‡ãƒ¼ã‚¿è¡¨ç¤º"),
+		TERMINATE("çµ‚äº†");
 
-		private final String message;			// •\¦—p•¶š—ñ
+		private final String message;			// è¡¨ç¤ºç”¨æ–‡å­—åˆ—
 
-		static Menu MenuAt(int idx) {			// ˜”‚ªidx‚Å‚ ‚é—ñ‹“‚ğ•Ô‚·
+		static Menu MenuAt(int idx) {			// åºæ•°ãŒidxã§ã‚ã‚‹åˆ—æŒ™ã‚’è¿”ã™
 			for (Menu m : Menu.values())
 				if (m.ordinal() == idx)
 					return m;
 			return null;
 		}
 
-		Menu(String string) {				// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		Menu(String string) {				// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 			message = string;
 		}
 
-		String getMessage() {				// •\¦—p•¶š—ñ‚ğ•Ô‚·
+		String getMessage() {				// è¡¨ç¤ºç”¨æ–‡å­—åˆ—ã‚’è¿”ã™
 			return message;
 		}
 	}
 
-	//--- ƒƒjƒ…[‘I‘ğ ---//
+	//--- ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠ ---//
 	static Menu SelectMenu() {
 		int key;
 		do {
@@ -75,7 +75,7 @@ class ChainHashTester {
 					  m.ordinal() != Menu.TERMINATE.ordinal())
 					System.out.println();
 			}
-			System.out.print("F");
+			System.out.print("ï¼š");
 			key = stdIn.nextInt();
 		} while (key < Menu.ADD.ordinal() || key > Menu.TERMINATE.ordinal());
 
@@ -83,35 +83,35 @@ class ChainHashTester {
 	}
 
 	public static void main(String[] args) {
-		Menu menu;					// ƒƒjƒ…[
-		Data data;					// ’Ç‰Á—pƒf[ƒ^QÆ
-		Data temp = new Data();	// “Ç‚İ—pƒf[ƒ^
+		Menu menu;					// ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+		Data data;					// è¿½åŠ ç”¨ãƒ‡ãƒ¼ã‚¿å‚ç…§
+		Data temp = new Data();	// èª­è¾¼ã¿ç”¨ãƒ‡ãƒ¼ã‚¿
 
 		ChainHash<Integer, Data> hash = new ChainHash<Integer, Data>(13);
 
 		do {
 			switch (menu = SelectMenu()) {
-			 case ADD :							// ’Ç‰Á
+			 case ADD :							// è¿½åŠ 
 					data = new Data();
-					data.scanData("’Ç‰Á", Data.NO | Data.NAME);
+					data.scanData("è¿½åŠ ", Data.NO | Data.NAME);
 			 		hash.add(data.keyCode(), data);
 			 		break;
 
-			 case REMOVE :						// íœ
-			 		temp.scanData("íœ", Data.NO);
+			 case REMOVE :						// å‰Šé™¤
+			 		temp.scanData("å‰Šé™¤", Data.NO);
 			 		hash.remove(temp.keyCode());
 			 		break;
 
-			 case SEARCH :						// ’Tõ
-					temp.scanData("’Tõ", Data.NO);
+			 case SEARCH :						// æ¢ç´¢
+					temp.scanData("æ¢ç´¢", Data.NO);
 			 		Data t = hash.search(temp.keyCode());
 			 		if (t != null)
-			 			System.out.println("‚»‚ÌƒL[‚ğ‚à‚Âƒf[ƒ^‚Í" + t + "‚Å‚·B");
+			 			System.out.println("ãã®ã‚­ãƒ¼ã‚’ã‚‚ã¤ãƒ‡ãƒ¼ã‚¿ã¯" + t + "ã§ã™ã€‚");
 					else
-			 			System.out.println("ŠY“–‚·‚éƒf[ƒ^‚Í‚ ‚è‚Ü‚¹‚ñB");
+			 			System.out.println("è©²å½“ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚");
 			 		break;
 
-			 case DUMP : 						// •\¦
+			 case DUMP : 						// è¡¨ç¤º
 			 		hash.dump();
 			 		break;
 			}

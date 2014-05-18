@@ -1,89 +1,89 @@
-// ƒI[ƒvƒ“ƒAƒhƒŒƒX–@‚É‚æ‚éƒnƒbƒVƒ…
+// ã‚ªãƒ¼ãƒ—ãƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹æ³•ã«ã‚ˆã‚‹ãƒãƒƒã‚·ãƒ¥
 
 public class MyOpenHash<K,V> {
 
-	//--- ƒoƒPƒbƒg‚Ìó‘Ô ---//
-	enum Status {OCCUPIED, EMPTY, DELETED};	// {ƒf[ƒ^Ši”[, ‹ó, íœÏ‚İ}
+	//--- ãƒã‚±ãƒƒãƒˆã®çŠ¶æ…‹ ---//
+	enum Status {OCCUPIED, EMPTY, DELETED};	// {ãƒ‡ãƒ¼ã‚¿æ ¼ç´, ç©º, å‰Šé™¤æ¸ˆã¿}
 
-	//--- ƒoƒPƒbƒg ---//
+	//--- ãƒã‚±ãƒƒãƒˆ ---//
 	static class Bucket<K,V> {
-		private K key;						// ƒL[’l
-		private V data;					// ƒf[ƒ^
-		private Status stat;				// ó‘Ô
+		private K key;						// ã‚­ãƒ¼å€¤
+		private V data;					// ãƒ‡ãƒ¼ã‚¿
+		private Status stat;				// çŠ¶æ…‹
 
-		//--- ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---//
+		//--- ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---//
 		Bucket() {
-			stat = Status.EMPTY;	// ƒoƒPƒbƒg‚Í‹ó
+			stat = Status.EMPTY;	// ãƒã‚±ãƒƒãƒˆã¯ç©º
 		}
 
-		//--- ‘SƒtƒB[ƒ‹ƒh‚É’l‚ğİ’è ---//
+		//--- å…¨ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å€¤ã‚’è¨­å®š ---//
 		void set(K key, V data, Status stat) {
-			this.key  = key;			// ƒL[’l
-			this.data = data;			// ƒf[ƒ^
-			this.stat = stat;			// ó‘Ô
+			this.key  = key;			// ã‚­ãƒ¼å€¤
+			this.data = data;			// ãƒ‡ãƒ¼ã‚¿
+			this.stat = stat;			// çŠ¶æ…‹
 		}
 
-		//--- ó‘Ô‚ğİ’è ---//
+		//--- çŠ¶æ…‹ã‚’è¨­å®š ---//
 		void setStat(Status stat) {
 			this.stat = stat;
 		}
 
-		//--- ƒL[’l‚ğ•Ô‚· ---//
+		//--- ã‚­ãƒ¼å€¤ã‚’è¿”ã™ ---//
 		K getKey() {
 			return key;
 		}
 
-		//--- ƒf[ƒ^‚ğ•Ô‚· ---//
+		//--- ãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã™ ---//
 		V getValue() {
 			return data;
 		}
 
-		//--- ƒL[‚ÌƒnƒbƒVƒ…’l‚ğ•Ô‚· ---//
+		//--- ã‚­ãƒ¼ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’è¿”ã™ ---//
 		public int hashCode() {
 			return key.hashCode();
 		}
 	}
 
-	private int size;						// ƒnƒbƒVƒ…•\‚Ì‘å‚«‚³
-	private Bucket<K,V>[] table;		// ƒnƒbƒVƒ…•\
+	private int size;						// ãƒãƒƒã‚·ãƒ¥è¡¨ã®å¤§ãã•
+	private Bucket<K,V>[] table;		// ãƒãƒƒã‚·ãƒ¥è¡¨
 
-	//--- ƒRƒ“ƒXƒgƒ‰ƒNƒ^ ---//
+	//--- ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ ---//
 	public MyOpenHash(int size) {
 		try {
 			table = new Bucket[size];
 			for (int i = 0; i < size; i++)
 				table[i] = new Bucket<K,V>();
 			this.size = size;
-		} catch (OutOfMemoryError e) {		// •\‚ğ¶¬‚Å‚«‚È‚©‚Á‚½
+		} catch (OutOfMemoryError e) {		// è¡¨ã‚’ç”Ÿæˆã§ããªã‹ã£ãŸ
 			this.size = 0;
 		}
 	}
 
-	//--- ƒnƒbƒVƒ…’l‚ğ‹‚ß‚é ---//
+	//--- ãƒãƒƒã‚·ãƒ¥å€¤ã‚’æ±‚ã‚ã‚‹ ---//
 	public int hashValue(Object key) {
 		return key.hashCode() % size;
 	}
 
-	//--- ÄƒnƒbƒVƒ…’l‚ğ‹‚ß‚é ---//
+	//--- å†ãƒãƒƒã‚·ãƒ¥å€¤ã‚’æ±‚ã‚ã‚‹ ---//
 	public int rehashValue(int hash) {
 		return (hash + 1) % size;
 	}
 
-	//--- ƒL[’lkey‚ğ‚à‚ÂƒoƒPƒbƒg‚Ì’Tõ ---//
+	//--- ã‚­ãƒ¼å€¤keyã‚’ã‚‚ã¤ãƒã‚±ãƒƒãƒˆã®æ¢ç´¢ ---//
 	private Bucket<K,V> searchNode(K key) {
-		int hash = hashValue(key);			// ’Tõ‚·‚éƒf[ƒ^‚ÌƒnƒbƒVƒ…’l
-		Bucket<K,V> p = table[hash];		// ’…–ÚƒoƒPƒbƒg
+		int hash = hashValue(key);			// æ¢ç´¢ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚·ãƒ¥å€¤
+		Bucket<K,V> p = table[hash];		// ç€ç›®ãƒã‚±ãƒƒãƒˆ
 
 		for (int i = 0; p.stat != Status.EMPTY && i < size; i++) {
 			if (p.stat == Status.OCCUPIED && p.getKey().equals(key))
 				return p;
-			hash = rehashValue(hash);		// ÄƒnƒbƒVƒ…
+			hash = rehashValue(hash);		// å†ãƒãƒƒã‚·ãƒ¥
 			p = table[hash];
 		}
 		return null;
 	}
 
-	//--- ƒL[’lkey‚ğ‚à‚Â—v‘f‚Ì’Tõiƒf[ƒ^‚ğ•Ô‹pj---//
+	//--- ã‚­ãƒ¼å€¤keyã‚’ã‚‚ã¤è¦ç´ ã®æ¢ç´¢ï¼ˆãƒ‡ãƒ¼ã‚¿ã‚’è¿”å´ï¼‰---//
 	public V search(K key) {
 		Bucket<K,V> p = searchNode(key);
 		if (p != null)
@@ -92,35 +92,35 @@ public class MyOpenHash<K,V> {
 			return null;
 	}
 
-	//--- ƒL[’lkeyEƒf[ƒ^data‚ğ‚à‚Â—v‘f‚Ì’Ç‰Á ---//
+	//--- ã‚­ãƒ¼å€¤keyãƒ»ãƒ‡ãƒ¼ã‚¿dataã‚’ã‚‚ã¤è¦ç´ ã®è¿½åŠ  ---//
 	public int add(K key, V data) {
 		if (search(key) != null)
-			return 1;							// ‚±‚ÌƒL[’l‚Í“o˜^Ï‚İ
+			return 1;							// ã“ã®ã‚­ãƒ¼å€¤ã¯ç™»éŒ²æ¸ˆã¿
 
-		int hash = hashValue(key);			// ’Ç‰Á‚·‚éƒf[ƒ^‚ÌƒnƒbƒVƒ…’l
-		Bucket<K,V> p = table[hash];		// ’…–ÚƒoƒPƒbƒg
+		int hash = hashValue(key);			// è¿½åŠ ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚·ãƒ¥å€¤
+		Bucket<K,V> p = table[hash];		// ç€ç›®ãƒã‚±ãƒƒãƒˆ
 		for (int i = 0; i < size; i++) {
 			if (p.stat == Status.EMPTY || p.stat == Status.DELETED) {
 				p.set(key, data, Status.OCCUPIED);
 				return 0;
 			}
-			hash = rehashValue(hash);		// ÄƒnƒbƒVƒ…
+			hash = rehashValue(hash);		// å†ãƒãƒƒã‚·ãƒ¥
 			p = table[hash];
 		}
-		return 2;								// ƒnƒbƒVƒ…•\‚ª–”t
+		return 2;								// ãƒãƒƒã‚·ãƒ¥è¡¨ãŒæº€æ¯
 	}
 
-	//--- ƒL[’lkey‚ğ‚à‚Â—v‘f‚Ìíœ ---//
+	//--- ã‚­ãƒ¼å€¤keyã‚’ã‚‚ã¤è¦ç´ ã®å‰Šé™¤ ---//
 	public int remove(K key) {
-		Bucket<K,V> p = searchNode(key);	// ’…–ÚƒoƒPƒbƒg
+		Bucket<K,V> p = searchNode(key);	// ç€ç›®ãƒã‚±ãƒƒãƒˆ
 		if (p == null)
-			return 1;							// ‚±‚ÌƒL[’l‚Í“o˜^‚³‚ê‚Ä‚¢‚È‚¢
+			return 1;							// ã“ã®ã‚­ãƒ¼å€¤ã¯ç™»éŒ²ã•ã‚Œã¦ã„ãªã„
 
 		p.setStat(Status.DELETED);
 		return 0;
 	}
 
-	//--- ƒnƒbƒVƒ…•\‚ğƒ_ƒ“ƒv ---//
+	//--- ãƒãƒƒã‚·ãƒ¥è¡¨ã‚’ãƒ€ãƒ³ãƒ— ---//
 	public void dump() {
 		for (int i = 0; i < size; i++) {
 			System.out.printf("%02d ", i);
@@ -131,10 +131,10 @@ public class MyOpenHash<K,V> {
 				break;
 
 			 case EMPTY :
-			 	System.out.println("-- –¢“o˜^ --");	break;
+			 	System.out.println("-- æœªç™»éŒ² --");	break;
 
 			 case DELETED :
-			 	System.out.println("-- íœÏ --");	break;
+			 	System.out.println("-- å‰Šé™¤æ¸ˆ --");	break;
 			}
 		}
 	}
