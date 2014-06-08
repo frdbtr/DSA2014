@@ -1,0 +1,7 @@
+import java.io.*;
+
+class MyCat{
+
+    public static void main(String[] args){
+
+	

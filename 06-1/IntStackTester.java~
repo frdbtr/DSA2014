@@ -37,7 +37,7 @@ class IntStackTester{
 		    x = s.peek();
 		    System.out.println("ピークしたデータは" + x + "です。");
 		}catch(IntStack.EmptyIntStackException e){
-		    System.out.println("スタックが空です。");
+		    system.out.println("スタックが空です。");
 		}
 		break;
 

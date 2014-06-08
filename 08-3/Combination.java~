@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+class Combination{
+    static int combination(int n){
+	if(n > 0)
+	    return combination(n - 1);
+	else
+	    return 1;
+    }
+
+    public static void main(String[] args){
+	Scanner stdIn = new Scanner(System.in);
+
+	System.out.print("n = ");
+	int n = stdIn.nextInt();
+	System.out.print("r = ");
+	int r = stdIn.nextInt();
+
+    }
+}

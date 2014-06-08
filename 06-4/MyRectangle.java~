@@ -1,0 +1,10 @@
+class MyRectangle{
+    
+    double width;
+    double height;
+
+    public MyRectangle(double w, double h){
+	width = w;
+	height = h;
+    }
+

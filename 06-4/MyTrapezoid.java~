@@ -1,0 +1,13 @@
+public class MyTrapezoid{
+    double base1, base2, height;
+
+    public MyTriangle(double b1, double b2, double h){
+	base1 = b1;
+	base2 = b2;
+	height = h;
+    }
+
+    public void showArea(){
+	System.out.println((b1 + b2) * height /2);
+    }
+}

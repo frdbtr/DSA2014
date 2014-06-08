@@ -1,0 +1,12 @@
+public class MyTriangle{
+    double base, height;
+
+    public MyTriangle(double b, double h){
+	base = b;
+	height = h;
+    }
+
+    public void showArea(){
+	System.out.println(b * h / 2);
+    }
+}

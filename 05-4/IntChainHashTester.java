@@ -1,0 +1,30 @@
+class IntChainHashTester{
+    public static void main(String[] args){
+	IntChainHash hash = new IntChainHash(13);
+	hash.add(5);
+	hash.add(6);
+	hash.add(14);
+	hash.add(17);
+	hash.add(29);
+	hash.add(33);
+	hash.add(69);
+	hash.add(20);
+	hash.dump();
+	hash.add(13);
+	hash.add(46);
+	hash.dump();
+	hash.remove(69);
+	hash.dump();
+	int searchValue = 1;
+	if(hash.search(searchValue))
+	    System.out.println(searchValue + ":探索成功");
+	else
+	    System.out.println(searchValue + ":探索失敗");
+
+	searchValue = 20;
+	if(hash.search(searchValue))
+	    System.out.println(searchValue + ":探索成功");
+	else
+	    System.out.println(searchValue + ":探索失敗");
+    }
+}
